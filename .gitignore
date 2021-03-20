@@ -1,0 +1,41 @@
+# =============== #
+# Unity generated #
+# =============== #
+Affect/Temp/
+Affect/Obj/
+Affect/UnityGenerated/
+Affect/Library/
+Affect/Assets/AssetStoreTools*
+Affect/.vs/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.lock
+*.ide
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+*.pub
+
+/stabletoxic
+© 2021 GitHub, Inc.
