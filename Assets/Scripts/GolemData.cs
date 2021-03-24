@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEditor;
+
 
 namespace Assets.Scripts
 {
@@ -13,6 +15,8 @@ namespace Assets.Scripts
 
         [SerializeField]
         private Element golemName;
+        [SerializeField]
+        private RuntimeAnimatorController animator;
         [SerializeField]
         private Mesh golemMesh;
         [SerializeField]
@@ -28,6 +32,8 @@ namespace Assets.Scripts
 
 
         public Element GolemType => golemName;
+
+        public RuntimeAnimatorController Animator => animator;
 
         public Mesh GolemMesh => golemMesh;
 

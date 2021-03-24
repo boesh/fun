@@ -12,6 +12,8 @@ namespace Assets.Scripts
         private GolemData golemData;
         [SerializeField]
         Vector3 startPosition;
+        [SerializeField]
+        private RuntimeAnimatorController animatorController;
         float deathDistation = 40f;
         [SerializeField]
         Vector2 correctPointForStartPositionX;
@@ -24,9 +26,9 @@ namespace Assets.Scripts
 
         public void EnemySettings(IGolem _enemyData)
         {
-            golemData = (GolemData)_enemyData;
-            GetComponent<Renderer>().material = golemData.GolemMaterial;
-            GetComponent<MeshFilter>().mesh = golemData.GolemMesh;
+            //golemData = (GolemData)_enemyData;
+            //GetComponent<Renderer>().material = golemData.GolemMaterial;
+            //GetComponent<MeshFilter>().mesh = golemData.GolemMesh;
             hp = golemData.HealthPoint;
         }
 
@@ -60,11 +62,7 @@ namespace Assets.Scripts
             transform.LookAt(direction);
             rb.velocity = Vector3.zero;
 
-            //Vector3 v = new Vector3(direction.position.x, transform.position.y, direction.position.z) - transform.position;
-            //rb.MovePosition(v.normalized);
-            //rb.AddForce(-Vector3.forward * golemData.MoveSpeed * 2, ForceMode.Impulse);
-            //rb.AddForce(v.normalized);
-            //rb.MovePosition(-Vector3.forward * golemData.MoveSpeed);
+            
         }
 
         private void ReturnToPull()
@@ -83,9 +81,10 @@ namespace Assets.Scripts
 
         private void Awake()
         {
-            GetComponent<Rigidbody>().mass = golemData.Mass;
-            GetComponent<Renderer>().material = golemData.GolemMaterial;
-            GetComponent<MeshFilter>().mesh = golemData.GolemMesh;
+
+            EnemySettings(golemData);
+            rb = GetComponent<Rigidbody>();
+            
 
             startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), transform.position.y, 20f);
             transform.position = startPosition;

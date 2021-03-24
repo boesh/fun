@@ -12,9 +12,11 @@ namespace Assets.Scripts
         PoolManager pool;
         [SerializeField]
         List<GolemData> enemyData;
+        [SerializeField]
+        List<GameObject> enemyPrefabs;
 
         [SerializeField]
-        float spawnTime = 0.3f;
+        float spawnTime = 1f;
 
         private void Start()
         {
@@ -26,7 +28,9 @@ namespace Assets.Scripts
             while (true)
             {
                 yield return new WaitForSeconds(spawnTime);
-                pool.GetObjectFromPool(enemy.gameObject, transform).GetComponent<GolemController>().EnemySettings(enemyData[Random.Range(0, enemyData.Count)]);
+                int s = Random.Range(0, enemyData.Count);
+                //pool.GetObjectFromPool(enemy.gameObject, transform).GetComponent<GolemController>().EnemySettings(enemyData[Random.Range(0, enemyData.Count)]);
+                pool.GetObjectFromPool(enemyPrefabs[s], transform).GetComponent<GolemController>().EnemySettings(enemyData[s]);
             }
         }
 

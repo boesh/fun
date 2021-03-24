@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: GolemWater
   m_EditorClassIdentifier: 
   golemName: 1
-  golemMesh: {fileID: -2432090755550338912, guid: 9a9c45c081d6b5f4aa8711eb47c9e10e,
+  animator: {fileID: 0}
+  golemMesh: {fileID: -2432090755550338912, guid: 2c60bdbd8702dc847848e99b5962a6b4,
     type: 3}
-  golemMaterial: {fileID: 2100000, guid: 9ecc754ddc4a93e49b58b3a85c5dd3f0, type: 2}
+  golemMaterial: {fileID: 2100000, guid: 8d7cd95589f6c2a4f851b147e23c73b1, type: 2}
   moveSpeed: 2
   attackDamage: 4
   healthPoint: 5
