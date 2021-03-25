@@ -14,7 +14,7 @@ namespace Assets.Scripts
         Vector3 startPosition;
         [SerializeField]
         private RuntimeAnimatorController animatorController;
-        float deathDistation = 40f;
+        float deathDistation = 50f;
         [SerializeField]
         Vector2 correctPointForStartPositionX;
         [SerializeField]
@@ -23,6 +23,11 @@ namespace Assets.Scripts
         Transform direction;
         float hp;
 
+
+        public Element GetElement()
+        {
+            return golemData.GolemType;
+        }
 
         public void EnemySettings(IGolem _enemyData)
         {
@@ -58,9 +63,10 @@ namespace Assets.Scripts
 
         void Move()
         {
-            transform.Translate(Vector3.forward * golemData.MoveSpeed / 10);
+            //transform.Translate(Vector3.forward * golemData.MoveSpeed / 10);
             transform.LookAt(direction);
-            rb.velocity = Vector3.zero;
+            rb.velocity = transform.forward * golemData.MoveSpeed * 5;
+            
 
             
         }
@@ -71,8 +77,9 @@ namespace Assets.Scripts
             {
                 PlayerController.hp -= golemData.AttackDamage;
                 gameObject.SetActive(false);
-                startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), transform.position.y, 20f);
+                startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), 1f, 40f);
                 transform.position = startPosition;
+                
                 //Debug.Log(rb.velocity);
             }
         }
@@ -86,7 +93,7 @@ namespace Assets.Scripts
             rb = GetComponent<Rigidbody>();
             
 
-            startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), transform.position.y, 20f);
+            startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), 1f, 40f);
             transform.position = startPosition;
         }
 
@@ -96,7 +103,7 @@ namespace Assets.Scripts
             {
                 PlayerController.kills++;
                 gameObject.SetActive(false);
-                startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), transform.position.y, 20f);
+                startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), transform.position.y, 40f);
                 transform.position = startPosition;
             }
             ReturnToPull();

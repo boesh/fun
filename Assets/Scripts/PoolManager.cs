@@ -2,34 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : MonoBehaviour
+namespace Assets.Scripts
 {
-    private List<GameObject> pool;
-
-    public PoolManager()
+    public class PoolManager : MonoBehaviour
     {
-        this.pool = new List<GameObject>();
-    }
+        private List<GameObject> pool;
 
-    public void AddObjectToPool(GameObject prefab, Transform parent)
-    {
-        pool.Add(Instantiate(prefab, parent));
-    }
-
-    public GameObject GetObjectFromPool(GameObject prefab, Transform parent)
-    {
-        
-        for (int i = 0; i < pool.Count; i++)
+        public PoolManager()
         {
-            if (!pool[i].activeSelf)
-            {
-                pool[i].SetActive(true);
-                return pool[i];
-            }
+            this.pool = new List<GameObject>();
         }
 
-        AddObjectToPool(prefab, parent);
-        return pool[pool.Count - 1];
-    }
-}
+        public void AddObjectToPool(GameObject prefab, Transform parent)
+        {
+            pool.Add(Instantiate(prefab, parent));
+        }
 
+        public GameObject GetObjectFromPool(GameObject prefab, Transform parent)
+        {
+
+            for (int i = 0; i < pool.Count; i++)
+            {
+                if (!pool[i].activeSelf)
+                {
+                    pool[i].SetActive(true);
+                    return pool[i];
+                }
+            }
+
+            AddObjectToPool(prefab, parent);
+            return pool[pool.Count - 1];
+        }
+
+        public GameObject GetObjectFromPool(GolemController prefab, Transform parent)
+        {
+
+            for (int i = 0; i < pool.Count; i++)
+            {
+
+                if (!pool[i].activeSelf && pool[i].GetComponent<GolemController>().GetElement() == prefab.GetElement())
+                {
+                    pool[i].SetActive(true);
+                    return pool[i];
+                }
+            }
+
+            AddObjectToPool(prefab.gameObject, parent);
+            return pool[pool.Count - 1];
+        }
+    }
+
+}

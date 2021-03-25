@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: 0
   spellMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  spellMaterial: {fileID: 2100000, guid: d9b9d8c05ef45c744830cc1b7fc1df5b, type: 2}
+  spellMaterial: {fileID: 2100000, guid: df5c60c2487467b4fac0a5eb15038c7e, type: 2}
   damage: 4
   speed: 5

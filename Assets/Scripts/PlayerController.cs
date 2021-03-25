@@ -19,7 +19,8 @@ namespace Assets.Scripts
         
         Vector3 v;
 
-        
+        [SerializeField]
+        Animator animator;
         [SerializeField]
         PoolManager poolManager;
 
@@ -32,8 +33,13 @@ namespace Assets.Scripts
 
         int currentSpellIndex;
 
+       
         
-
+        void SpawnSpell()
+        {
+            SpellController s = poolManager.GetObjectFromPool(spell.gameObject, spell.transform.parent).GetComponent<SpellController>();
+            s.Init(new Vector3(v.x, 0, v.y).normalized, startSpellPosition.position, spellsSettings[currentSpellIndex]);
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -78,12 +84,22 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
+            //Debug.Log("state length    " + animator.GetCurrentAnimatorStateInfo(0).length +
+            //    "            clip length            " + animator.GetCurrentAnimatorClipInfo(0).Length + "         " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            if (animator.GetCurrentAnimatorStateInfo(0).length < (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 1.5)
+                && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && animator.GetBool("Attack"))
+            {
+                
+                    animator.SetBool("Attack", false);
+
+                    SpawnSpell();
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
-                SpellController s = poolManager.GetObjectFromPool(spell.gameObject, spell.transform.parent).GetComponent<SpellController>();
-                    //.Init(new Vector3(v.x, 0, v.y).normalized, startSpellPosition.position);
-                s.Init(new Vector3(v.x, 0, v.y).normalized, startSpellPosition.position, spellsSettings[currentSpellIndex]);
-                //s.SpellSettings();
+                if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    animator.SetBool("Attack", true);
+               
 
             }
             if (Input.GetButtonDown("1"))
@@ -108,7 +124,7 @@ namespace Assets.Scripts
                 Debug.Log("gameOver");
                 Time.timeScale = 0f;
             }
-            Debug.Log(Application.isPlaying);
+            //Debug.Log(Application.isPlaying);
 
         }
 
