@@ -1,12 +1,12 @@
 # =============== #
 # Unity generated #
 # =============== #
-Affect/Temp/
-Affect/Obj/
-Affect/UnityGenerated/
-Affect/Library/
-Affect/Assets/AssetStoreTools*
-Affect/.vs/
+Temp/
+Obj/
+UnityGenerated/
+Library/
+Assets/AssetStoreTools*
+.vs/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -23,6 +23,7 @@ ExportedObj/
 *.booproj
 *.lock
 *.ide
+
 
 # ============ #
 # OS generated #
