@@ -16,12 +16,6 @@ namespace Assets.Scripts
         [SerializeField]
         private Element golemName;
         [SerializeField]
-        private RuntimeAnimatorController animator;
-        [SerializeField]
-        private Mesh golemMesh;
-        [SerializeField]
-        private Material golemMaterial;
-        [SerializeField]
         private float moveSpeed;
         [SerializeField]
         private int attackDamage;
@@ -32,12 +26,6 @@ namespace Assets.Scripts
 
 
         public Element GolemType => golemName;
-
-        public RuntimeAnimatorController Animator => animator;
-
-        public Mesh GolemMesh => golemMesh;
-
-        public Material GolemMaterial => golemMaterial;
 
         public float MoveSpeed => moveSpeed;
 

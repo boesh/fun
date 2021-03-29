@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: GolemFire
   m_EditorClassIdentifier: 
   golemName: 0
-  animator: {fileID: 0}
-  golemMesh: {fileID: -2432090755550338912, guid: 167cf01b45632d442801ef89678f0400,
-    type: 3}
-  golemMaterial: {fileID: 2100000, guid: df5c60c2487467b4fac0a5eb15038c7e, type: 2}
   moveSpeed: 3
-  attackDamage: 3
+  attackDamage: 5
   healthPoint: 5
   mass: 3

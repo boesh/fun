@@ -16,4 +16,4 @@ MonoBehaviour:
   spellMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   spellMaterial: {fileID: 2100000, guid: 8d7cd95589f6c2a4f851b147e23c73b1, type: 2}
   damage: 4
-  speed: 5
+  speed: 7

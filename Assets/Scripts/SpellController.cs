@@ -12,7 +12,8 @@ namespace Assets.Scripts
         Vector3 direction;
         
         Vector3 startPosition;
-        float deathDistation = 30f;
+        [SerializeField]
+        float deathDistation = 80f;
 
         public void SpellSettings(ISpell _spellData)
         {

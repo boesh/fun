@@ -11,10 +11,6 @@ namespace Assets.Scripts
     {
         Element GolemType { get; }
 
-        Mesh GolemMesh { get; }
-
-        Material GolemMaterial { get; }
-
         float MoveSpeed { get; }
 
         int AttackDamage { get; }

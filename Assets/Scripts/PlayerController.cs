@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+
 
 namespace Assets.Scripts
 {
@@ -8,12 +12,15 @@ namespace Assets.Scripts
 
     public class PlayerController : MonoBehaviour
     {
-        
+        [SerializeField]
+        List<Text> info;
         [SerializeField]
         private Camera cam;
         [SerializeField]
         Transform startSpellPosition;
-
+        [SerializeField]
+        Transform uiSpells;
+        Quaternion uiSpellsDir;
         public static int kills = 0;
         public static int hp = 100;
         
@@ -33,22 +40,32 @@ namespace Assets.Scripts
 
         int currentSpellIndex;
 
-       
-        
+        Vector2 startPos;
+        Vector2 dir;
+
+
+        public void Restart()
+        {
+            SceneManager.LoadScene(0);
+            kills = 0;
+            hp = 100;
+            Time.timeScale = 1f;
+        }
+
+        public void Exit()
+        {
+            Application.Quit();
+        }
+
         void SpawnSpell()
         {
             SpellController s = poolManager.GetObjectFromPool(spell.gameObject, spell.transform.parent).GetComponent<SpellController>();
             s.Init(new Vector3(v.x, 0, v.y).normalized, startSpellPosition.position, spellsSettings[currentSpellIndex]);
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
-
-            
-
-            
-            
+            uiSpellsDir = uiSpells.rotation;
         }
 
         void OnGUI()
@@ -66,19 +83,16 @@ namespace Assets.Scripts
 
             if (Input.GetMouseButtonDown(0))
             {
-                v = cam.WorldToScreenPoint(startSpellPosition.position) - new Vector3(mousePos.x, mousePos.y, 24.2f);
-                //Debug.Log(v);
-                
+                v = cam.WorldToScreenPoint(startSpellPosition.position) - new Vector3(mousePos.x, mousePos.y, cam.transform.position.z);
+                //Debug.Log(cam.);
+
 
             }
 
+            info[0].text = "HP: " + hp.ToString();
+            info[1].text = "Kills: " + kills.ToString();
 
-            GUILayout.BeginArea(new Rect(20, 20, 250, 120));
-            GUILayout.Label("hp: " + hp);
-
-            GUILayout.Label("Kills: " + kills);
-
-            GUILayout.EndArea();
+           
         }
 
         // Update is called once per frame
@@ -97,33 +111,124 @@ namespace Assets.Scripts
 
             if (Input.GetMouseButtonDown(0))
             {
-                if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) //  spell cast for PC tests TODO delete for bild
                     animator.SetBool("Attack", true);
-               
 
             }
             if (Input.GetButtonDown("1"))
             {
                 currentSpellIndex = 0;
+                
+                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
+
             }
             if (Input.GetButtonDown("2"))
             {
-                currentSpellIndex = 1;
+                if (currentSpellIndex > 0)
+                {
+                    currentSpellIndex--;
+
+                }
+                else
+                {
+
+                    currentSpellIndex = spellsSettings.Count - 1;
+                }
+                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
+
             }
             if (Input.GetButtonDown("3"))
             {
-                currentSpellIndex = 2;
+                if (currentSpellIndex < spellsSettings.Count - 1)
+                {
+                    currentSpellIndex++;
+
+
+                }
+                else
+                {
+                    currentSpellIndex = 0;
+                    
+
+                }
+                uiSpellsDir *= Quaternion.Euler(-Vector3.forward * 120f);
             }
             if (Input.GetButtonDown("4"))
             {
-                hp = 10000000;
-                Time.timeScale = 1f;
+                Restart();
             }
             if (hp <= 0)
             {
-                Debug.Log("gameOver");
                 Time.timeScale = 0f;
+                
+                info[2].text = "GAME OVER";
+                //Debug.Log("gameOver");
             }
+
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                // Handle finger movements based on touch phase.
+                switch (touch.phase)
+                {
+                    // Record initial touch position.
+                    case TouchPhase.Began:
+                        startPos = touch.position;
+                        break;
+
+                    // Determine direction by comparing the current touch position with the initial one.
+                    case TouchPhase.Moved:
+                        dir = touch.position - startPos;
+
+                        break;
+
+                    //Report that a direction has been chosen when the finger is lifted.
+                    case TouchPhase.Ended:
+                        dir = touch.position - startPos; //for next test
+                        if (dir.y < 250 && dir.y > -250) // spell swipe
+                        {
+                            if (dir.x < -150)
+                            {
+                                if (currentSpellIndex < spellsSettings.Count - 1)
+                                {
+                                    currentSpellIndex++;
+                                }
+                                else
+                                {
+                                    currentSpellIndex = 0;
+                                }
+                                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
+                            } 
+                            else if (dir.x > 150)
+                            {
+                                if (currentSpellIndex > 0)
+                                {
+                                    currentSpellIndex--;
+                                }
+                                else
+                                {
+                                    currentSpellIndex = spellsSettings.Count - 1;
+                                }
+                                uiSpellsDir *= Quaternion.Euler(-Vector3.forward * 120f);
+                            }
+                            else
+                            {
+                                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) //  spell cast
+                                    animator.SetBool("Attack", true);
+                            }
+                        }
+                        else
+                        {
+                            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) //  spell cast
+                                animator.SetBool("Attack", true);
+                        }
+
+                        break;
+                }
+            }
+            uiSpells.rotation = Quaternion.Lerp(uiSpells.rotation, uiSpellsDir, Time.deltaTime * 5);
             //Debug.Log(Application.isPlaying);
 
         }
