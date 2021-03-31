@@ -13,6 +13,8 @@ namespace Assets.Scripts
 
         Mesh SpellMesh { get; }
 
+        ParticleSystem Particle { get; }
+
         Material SpellMaterial { get; }
 
         int Damage { get; }

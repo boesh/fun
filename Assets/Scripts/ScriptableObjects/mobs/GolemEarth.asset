@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GolemEarth
   m_EditorClassIdentifier: 
   golemName: 3
-  moveSpeed: 1
+  moveSpeed: 0.5
   attackDamage: 20
-  healthPoint: 10
+  healthPoint: 40
   mass: 40

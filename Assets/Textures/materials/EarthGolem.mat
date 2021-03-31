@@ -12,7 +12,7 @@ Material:
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 432ab179df95b4645b7f105aa279295e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 58f82f2b3a7300947bcf44e7aebf90f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 2800000, guid: 2dfb6817f415f2d4b82a76ff23b59de0, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
@@ -40,19 +40,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 51ffd7091fdde0742bb5f35788f64b1b, type: 3}
+        m_Texture: {fileID: 2800000, guid: a2b0ffb022068594cbf53afc541cfe46, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: cf00a7df37cbdd6418255b38a4e03c42, type: 3}
+        m_Texture: {fileID: 2800000, guid: c7d7a5110f1648240825c05ddf613973, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 869a10d1b66b8a547b744d7bf3b01e82, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3d057ec316ad5c34fae774889380abe1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 306db6ca4354a314b9a016a6edccc1b2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 139534acda7c4274194ca47315b54ccb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:

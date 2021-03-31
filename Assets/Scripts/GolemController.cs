@@ -22,6 +22,8 @@ namespace Assets.Scripts
         Transform direction;
         [SerializeField]
         Animator animator;
+        [SerializeField]
+        Collider2D col;
 
         [SerializeField]
         Slider UIHPbar;
@@ -39,7 +41,7 @@ namespace Assets.Scripts
             hp = golemData.HealthPoint * (1 + PlayerController.kills / 100);
             speed = golemData.MoveSpeed * (1 + PlayerController.kills / 100);
 
-
+            col.enabled = true;
 
             UIHPbar.maxValue = hp / 1000;
             UIHPbar.value = UIHPbar.maxValue;
@@ -75,19 +77,11 @@ namespace Assets.Scripts
         void Move()
         {
 
-            //transform.LookAt(direction);
 
             rb.velocity = (new Vector2(direction.position.x, direction.position.y) - rb.position).normalized * speed * 5;
             transform.right = (direction.position - transform.position);
+            rb.inertia = 0;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                transform.right += Vector3.down;
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                transform.right += Vector3.up;
-            }
 
 
         }
@@ -100,8 +94,10 @@ namespace Assets.Scripts
                 gameObject.SetActive(false);
                 startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), startPosition.y, startPosition.z);
                 transform.position = startPosition;
+
+
+
                 
-                //Debug.Log(rb.velocity);
             }
         }
 
@@ -129,10 +125,12 @@ namespace Assets.Scripts
                 if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
                     animator.SetTrigger("Death");
                 if(speed > 0)
-                speed -= 0.1f;
-                transform.position += Vector3.forward / 100;
+                speed -= .5f;
+                //transform.position = Vector3.forward / 100;
+
+                col.enabled = false;
             }
-            if (animator.GetCurrentAnimatorStateInfo(0).length < (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 1.5f)
+            if (animator.GetCurrentAnimatorStateInfo(0).length < (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 3f)
                 && animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
                 PlayerController.kills++;
@@ -143,7 +141,7 @@ namespace Assets.Scripts
             }
             ReturnToPull();
 
-
+            //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length + "          " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 
         // Update is called once per frame

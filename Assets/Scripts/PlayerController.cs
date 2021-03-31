@@ -23,6 +23,13 @@ namespace Assets.Scripts
         Quaternion uiSpellsDir;
         public static int kills = 0;
         public static int hp = 100;
+
+        [SerializeField]
+        AudioSource audioSource;
+        [SerializeField]
+        List<AudioClip> audioClips;
+
+        
         
         Vector3 v;
 
@@ -38,11 +45,19 @@ namespace Assets.Scripts
         [SerializeField]
         List<SpellData> spellsSettings;
 
+        [SerializeField]
+        List<SpellController> prefabs;
+
+
         int currentSpellIndex;
 
         Vector2 startPos;
         Vector2 dir;
 
+
+        
+
+        
 
         public void Restart()
         {
@@ -59,8 +74,10 @@ namespace Assets.Scripts
 
         void SpawnSpell()
         {
-            SpellController s = poolManager.GetObjectFromPool(spell.gameObject, spell.transform.parent).GetComponent<SpellController>();
-            s.Init(new Vector3(v.x, 0, v.y).normalized, startSpellPosition.position, spellsSettings[currentSpellIndex]);
+            Debug.Log(currentSpellIndex);
+            poolManager.GetObjectFromPool(prefabs[currentSpellIndex], spell.transform.parent)
+                .GetComponent<SpellController>().Init(new Vector3(v.x, -v.y, 0).normalized, startSpellPosition.position, spellsSettings[currentSpellIndex]);
+            Debug.Log(currentSpellIndex);
         }
 
         private void Awake()
@@ -89,7 +106,7 @@ namespace Assets.Scripts
 
             }
 
-            info[0].text = "HP: " + hp.ToString();
+            info[0].text = "HP: " + (hp < 0 ? "0" : hp.ToString()) ;
             info[1].text = "Kills: " + kills.ToString();
 
            
@@ -118,12 +135,29 @@ namespace Assets.Scripts
             }
             if (Input.GetButtonDown("1"))
             {
-                currentSpellIndex = 0;
-                
-                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
+                Time.timeScale = 1f;
+                hp = 100000000;
 
             }
             if (Input.GetButtonDown("2"))
+            {
+                
+                if (currentSpellIndex < spellsSettings.Count - 1)
+                {
+                    currentSpellIndex++;
+
+
+                }
+                else
+                {
+                    currentSpellIndex = 0;
+
+
+                }
+                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
+
+            }
+            if (Input.GetButtonDown("3"))
             {
                 if (currentSpellIndex > 0)
                 {
@@ -134,23 +168,6 @@ namespace Assets.Scripts
                 {
 
                     currentSpellIndex = spellsSettings.Count - 1;
-                }
-                uiSpellsDir *= Quaternion.Euler(Vector3.forward * 120f);
-
-            }
-            if (Input.GetButtonDown("3"))
-            {
-                if (currentSpellIndex < spellsSettings.Count - 1)
-                {
-                    currentSpellIndex++;
-
-
-                }
-                else
-                {
-                    currentSpellIndex = 0;
-                    
-
                 }
                 uiSpellsDir *= Quaternion.Euler(-Vector3.forward * 120f);
             }
@@ -230,7 +247,11 @@ namespace Assets.Scripts
             }
             uiSpells.rotation = Quaternion.Lerp(uiSpells.rotation, uiSpellsDir, Time.deltaTime * 5);
             //Debug.Log(Application.isPlaying);
-
+            if (kills > 1)
+            {
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
+            }
         }
 
         private void FixedUpdate()

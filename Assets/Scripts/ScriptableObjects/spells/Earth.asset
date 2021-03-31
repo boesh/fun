@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817bd288fa53d1b4490a65b5b3bb6100, type: 3}
   m_Name: Earth
   m_EditorClassIdentifier: 
-  spellName: 3
+  spellType: 3
   spellMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   spellMaterial: {fileID: 2100000, guid: 7a0afec2286b5b94da723de51ca8aab1, type: 2}
   damage: 4
   speed: 7
+  particle: {fileID: 4142498953554523721, guid: cfb2db02731df494886064ed03e91899,
+    type: 3}
