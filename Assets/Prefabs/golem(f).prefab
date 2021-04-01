@@ -1064,6 +1064,13 @@ MonoBehaviour:
     type: 3}
   animator: {fileID: 5547313051992732991}
   col: {fileID: 7960063160343130533}
+  audioSource: {fileID: 4145540974405702491}
+  deathClips:
+  - {fileID: 8300000, guid: e14aa23f2579fc842bafda324a3d6444, type: 3}
+  spawnClips:
+  - {fileID: 8300000, guid: 4d3eb8c483b806040a3a6d0896156886, type: 3}
+  hittedClips:
+  - {fileID: 8300000, guid: ac49d34686e8ce94c989746ac68795dd, type: 3}
   UIHPbar: {fileID: 6667624027540336626}
 --- !u!50 &5756880168451191944
 Rigidbody2D:
@@ -1112,10 +1119,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 92d8571a0ddd3454ab913a010fc8604b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.2
   Loop: 0
   Mute: 0
   Spatialize: 0

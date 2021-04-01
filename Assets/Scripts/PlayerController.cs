@@ -21,7 +21,7 @@ namespace Assets.Scripts
         [SerializeField]
         Transform uiSpells;
         Quaternion uiSpellsDir;
-        public static int kills = 0;
+        static int kills = 0;
         public static int hp = 100;
 
         [SerializeField]
@@ -56,7 +56,14 @@ namespace Assets.Scripts
 
 
         
-
+        public static void IncrementKills()
+        {
+            kills++;
+        }
+        public static int GetKillsCount()
+        {
+            return kills;
+        }
         
 
         public void Restart()
@@ -137,7 +144,20 @@ namespace Assets.Scripts
             {
                 Time.timeScale = 1f;
                 hp = 100000000;
+                
+            }
 
+            if (kills % 10 == 0 && kills != 0)
+            {
+
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
+            }
+
+            if (kills % 15 == 0 && kills != 0)
+            {
+                audioSource.clip = audioClips[1];
+                audioSource.Play();
             }
             if (Input.GetButtonDown("2"))
             {
@@ -247,16 +267,11 @@ namespace Assets.Scripts
             }
             uiSpells.rotation = Quaternion.Lerp(uiSpells.rotation, uiSpellsDir, Time.deltaTime * 5);
             //Debug.Log(Application.isPlaying);
-            if (kills > 1)
-            {
-                audioSource.clip = audioClips[0];
-                audioSource.Play();
-            }
+            
         }
 
         private void FixedUpdate()
         {
-           
         }
     }
 }

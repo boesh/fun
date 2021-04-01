@@ -26,6 +26,18 @@ namespace Assets.Scripts
         Collider2D col;
 
         [SerializeField]
+        AudioSource audioSource;
+        [SerializeField]
+        List<AudioClip> deathClips;
+        [SerializeField]
+        List<AudioClip> spawnClips;
+        [SerializeField]
+        List<AudioClip> hittedClips;
+       
+
+
+
+        [SerializeField]
         Slider UIHPbar;
         float hp;
         float speed;
@@ -38,13 +50,16 @@ namespace Assets.Scripts
         public void EnemySettings(IGolem _enemyData)
         {
            
-            hp = golemData.HealthPoint * (1 + PlayerController.kills / 100);
-            speed = golemData.MoveSpeed * (1 + PlayerController.kills / 100);
+            hp = golemData.HealthPoint * (1 + (float)PlayerController.GetKillsCount() / 100);
+            speed = golemData.MoveSpeed * (1 + (float)PlayerController.GetKillsCount() / 100);
 
             col.enabled = true;
 
             UIHPbar.maxValue = hp / 1000;
             UIHPbar.value = UIHPbar.maxValue;
+
+            audioSource.clip = spawnClips[Random.Range(0, spawnClips.Count -1)];
+            audioSource.Play();
         }
 
 
@@ -70,6 +85,9 @@ namespace Assets.Scripts
 
             hp -= _spellData.Damage * damageMultipler;
 
+
+            audioSource.clip = hittedClips[Random.Range(0, spawnClips.Count - 1)];
+            audioSource.Play();
 
             UIHPbar.value = hp / 1000;
         }
@@ -122,18 +140,29 @@ namespace Assets.Scripts
             //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length  + "          " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime + "           " + animator.GetCurrentAnimatorClipInfo(0).Length);
             if(hp <= 0)
             {
-                if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
+                { 
                     animator.SetTrigger("Death");
-                if(speed > 0)
-                speed -= .5f;
-                //transform.position = Vector3.forward / 100;
+                    
 
+                    audioSource.clip = deathClips[Random.Range(0, spawnClips.Count - 1)];
+                    audioSource.Play();
+                }
+                if (speed > 0)
+                {
+                    speed -= .5f;
+                }
+                //transform.position = Vector3.forward / 100;
                 col.enabled = false;
+
+
+
+                
             }
             if (animator.GetCurrentAnimatorStateInfo(0).length < (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 3f)
                 && animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
-                PlayerController.kills++;
+                PlayerController.IncrementKills();
 
                 gameObject.SetActive(false);
                 startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), startPosition.y, startPosition.z);

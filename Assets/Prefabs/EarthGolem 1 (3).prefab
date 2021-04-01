@@ -1090,6 +1090,13 @@ MonoBehaviour:
     type: 3}
   animator: {fileID: 1270343745563545071}
   col: {fileID: 2850798504986236970}
+  audioSource: {fileID: 3206142747689212478}
+  deathClips:
+  - {fileID: 8300000, guid: c21ee6c892b658947822b6402ee55e4f, type: 3}
+  spawnClips:
+  - {fileID: 8300000, guid: 4d3eb8c483b806040a3a6d0896156886, type: 3}
+  hittedClips:
+  - {fileID: 8300000, guid: ac49d34686e8ce94c989746ac68795dd, type: 3}
   UIHPbar: {fileID: 4201213688812582904}
 --- !u!50 &3516033724317834325
 Rigidbody2D:
