@@ -167,17 +167,26 @@ MonoBehaviour:
   deathDistation: 90
   correctPointForStartPositionX: {x: 14, y: -14}
   rb: {fileID: 8614235337663201547}
-  direction: {fileID: 5784351995409543745, guid: 6dc6e8b67d71fd1499193557b4d3eb1a,
-    type: 3}
+  target: {fileID: 4741190137700115336, guid: 874cc8ff8668a5246a7420f0401ed7a8, type: 3}
   animator: {fileID: 605634154522088510}
   col: {fileID: 8752693629370495539}
   audioSource: {fileID: 2263547587394679752}
   deathClips:
-  - {fileID: 8300000, guid: 8390e0c88f249444fa37efb8a3fb3d0c, type: 3}
+  - {fileID: 8300000, guid: 2f9578d62ab22424db8e3c9a8e1b5814, type: 3}
   spawnClips:
   - {fileID: 8300000, guid: c1e6026fb0479f146bc6b3e99bff2107, type: 3}
   hittedClips:
-  - {fileID: 8300000, guid: ac49d34686e8ce94c989746ac68795dd, type: 3}
+  - {fileID: 8300000, guid: eca6c0dc75188004e9c948a305f2ac9a, type: 3}
+  attackClips:
+  - {fileID: 8300000, guid: 763934e7e677393429f14d11b7a983f5, type: 3}
+  - {fileID: 8300000, guid: a51383d1f3fded24da7d2aea56560247, type: 3}
+  - {fileID: 8300000, guid: 0e6e50290bd86c346b6f6d815223dc1a, type: 3}
+  - {fileID: 8300000, guid: 167977ab732530741af9b818af190fe4, type: 3}
+  - {fileID: 8300000, guid: a1509bc9e45b12c4baf6fddc905ab248, type: 3}
+  - {fileID: 8300000, guid: c8d25a35935f2dc4a839c1cd6a810718, type: 3}
+  - {fileID: 8300000, guid: 2db5ffea9abbe7940901827d081495b6, type: 3}
+  - {fileID: 8300000, guid: 1ec10aeb1588cc341b483eaaab0cabce, type: 3}
+  attackRange: 5
   UIHPbar: {fileID: 6184034034642992197}
 --- !u!50 &8614235337663201547
 Rigidbody2D:

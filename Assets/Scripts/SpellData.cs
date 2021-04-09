@@ -22,16 +22,10 @@ namespace Assets.Scripts
         private int damage;
         [SerializeField]
         private float speed;
-        [SerializeField]
-        private ParticleSystem particle;
-
-        private Vector3 direction;
-
+        
         public Element SpellType => spellType;
 
         public Mesh SpellMesh => spellMesh;
-
-        public ParticleSystem Particle => particle;
 
         public Material SpellMaterial => spellMaterial;
 
@@ -39,6 +33,5 @@ namespace Assets.Scripts
 
         public float Speed => speed;
 
-        public Vector3 Direction => direction;
     }
 }

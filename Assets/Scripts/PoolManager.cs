@@ -59,7 +59,7 @@ namespace Assets.Scripts
 
                 if (!pool[i].activeSelf && pool[i].GetComponent<SpellController>().GetElement() == prefab.GetElement())
                 {
-                    Debug.Log(pool[i].GetComponent<SpellController>().GetElement() + "      " + prefab.GetElement());
+                    //Debug.Log(pool[i].GetComponent<SpellController>().GetElement() + "      " + prefab.GetElement());
 
                     pool[i].SetActive(true);
                     return pool[i];

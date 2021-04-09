@@ -19,7 +19,7 @@ namespace Assets.Scripts
         [SerializeField]
         Rigidbody2D rb;
         [SerializeField]
-        Transform direction;
+        Transform target;
         [SerializeField]
         Animator animator;
         [SerializeField]
@@ -33,7 +33,10 @@ namespace Assets.Scripts
         List<AudioClip> spawnClips;
         [SerializeField]
         List<AudioClip> hittedClips;
-       
+        [SerializeField]
+        List<AudioClip> attackClips;
+        [SerializeField]
+        float attackRange;
 
 
 
@@ -45,6 +48,13 @@ namespace Assets.Scripts
         public Element GetElement()
         {
             return golemData.GolemType;
+        }
+
+        void Death()
+        {
+            audioSource.clip = deathClips[Random.Range(0, spawnClips.Count - 1)];
+            audioSource.Play();
+            
         }
 
         public void EnemySettings(IGolem _enemyData)
@@ -63,31 +73,34 @@ namespace Assets.Scripts
         }
 
 
-        public void TakeDamage(ISpell _spellData)
+        public void TakeDamage(Element _spellType, float _damage)
         {
-            float damageMultipler = 1;
+            float damageMultiplier = 1;
 
-            if(golemData.GolemType == _spellData.SpellType)
+            if(golemData.GolemType == _spellType)
             {
-                damageMultipler = 1;
+                damageMultiplier = 1;
             }
-            else if((golemData.GolemType == Element.EARTH && _spellData.SpellType == Element.WATER) ||
-                (golemData.GolemType == Element.WATER && _spellData.SpellType == Element.FIRE) ||
-                (golemData.GolemType == Element.FIRE && _spellData.SpellType == Element.EARTH))
+            else if((golemData.GolemType == Element.EARTH && _spellType == Element.WATER) ||
+                (golemData.GolemType == Element.WATER && _spellType == Element.FIRE) ||
+                (golemData.GolemType == Element.FIRE && _spellType == Element.EARTH))
             {
-                damageMultipler = 0.5f;
+                damageMultiplier = 0.5f;
             }
             else
             {
-                damageMultipler = 2;
+                damageMultiplier = 2;
             }
             
 
-            hp -= _spellData.Damage * damageMultipler;
+            hp -= _damage * damageMultiplier;
 
-
-            audioSource.clip = hittedClips[Random.Range(0, spawnClips.Count - 1)];
-            audioSource.Play();
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                audioSource.clip = hittedClips[Random.Range(0, spawnClips.Count - 1)];
+                audioSource.Play();
+            }
+            //Debug.Log(!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
 
             UIHPbar.value = hp / 1000;
         }
@@ -96,30 +109,31 @@ namespace Assets.Scripts
         {
 
 
-            rb.velocity = (new Vector2(direction.position.x, direction.position.y) - rb.position).normalized * speed * 5;
-            transform.right = (direction.position - transform.position);
+            rb.velocity = (new Vector2(target.position.x, target.position.y) - rb.position).normalized * speed * 5;
+            transform.right = (target.position - transform.position);
+
             rb.inertia = 0;
 
 
 
         }
 
+
+
         private void ReturnToPull()
         {
-            if (Vector3.Distance(startPosition, transform.position) > deathDistation)
-            {
-                PlayerController.hp -= golemData.AttackDamage;
-                gameObject.SetActive(false);
-                startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), startPosition.y, startPosition.z);
-                transform.position = startPosition;
-
-
-
-                
-            }
+           
         }
 
-        
+        private void AttackPlayer()
+        {
+            PlayerController.hp -= golemData.AttackDamage;
+            audioSource.clip = attackClips[Random.Range(0, attackClips.Count)];
+            audioSource.Play();
+
+        }
+
+
 
         private void Awake()
         {
@@ -140,14 +154,18 @@ namespace Assets.Scripts
             //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length  + "          " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime + "           " + animator.GetCurrentAnimatorClipInfo(0).Length);
             if(hp <= 0)
             {
+               
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 { 
                     animator.SetTrigger("Death");
                     
 
-                    audioSource.clip = deathClips[Random.Range(0, spawnClips.Count - 1)];
-                    audioSource.Play();
+
+                    //audioSource.clip = deathClips[Random.Range(0, spawnClips.Count - 1)];
+                    //audioSource.Play();
+
                 }
+                
                 if (speed > 0)
                 {
                     speed -= .5f;
@@ -163,13 +181,19 @@ namespace Assets.Scripts
                 && animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
             {
                 PlayerController.IncrementKills();
+                PlayerController.gold += 10 + PlayerController.GetKillsCount() / 10;
 
                 gameObject.SetActive(false);
                 startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), startPosition.y, startPosition.z);
                 transform.position = startPosition;
             }
-            ReturnToPull();
 
+            if (Vector3.Distance(target.position, transform.position) < attackRange)
+            {
+                animator.SetBool("Attack", true);
+
+            }
+            //Debug.Log(Vector3.Distance(target.position, transform.position));
             //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length + "          " + animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
 

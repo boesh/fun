@@ -14,6 +14,7 @@ namespace Assets.Scripts
         Vector3 startPosition;
         [SerializeField]
         float deathDistation = 80f;
+        float damage;
 
 
         MeshFilter meshFilter;
@@ -31,9 +32,10 @@ namespace Assets.Scripts
             return spellData.SpellType;
         }
 
-        public void SpellSettings(ISpell _spellData)
+        public void SpellSettings(ISpell _spellData, float _damageMultiplier)
         {
             spellData = (SpellData)_spellData;
+            damage = spellData.Damage * _damageMultiplier;
             
             
             
@@ -61,7 +63,7 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            other.GetComponent<GolemController>().TakeDamage(spellData);
+            other.GetComponent<GolemController>().TakeDamage(spellData.SpellType, damage);
 
             //Destroy(particleSys);
             gameObject.SetActive(false);
@@ -69,13 +71,14 @@ namespace Assets.Scripts
 
         
 
-        public void Init(Vector3 _direction, Vector3 startPosition, ISpell _spellData)
+        public void Init(Vector3 _direction, Vector3 startPosition, float damageMultiplier)
         {
             direction = _direction;
             transform.position = startPosition;
             this.startPosition = startPosition;
+            damage = spellData.Damage * damageMultiplier;
             //SpellSettings(_spellData);
-
+            
         }
 
         private void ReturnToPull()
@@ -124,7 +127,7 @@ namespace Assets.Scripts
             
 
             ReturnToPull();
-            transform.right = (direction - transform.position);
+            //transform.right = (direction - transform.position);
             //transform.LookAt(direction);
             this.transform.position -= direction * spellData.Speed / 10;
         }

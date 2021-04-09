@@ -2,18 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalAnim : MonoBehaviour
-{
-    Quaternion quaternion;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+namespace Assets.Scripts
+{
+    public class PortalAnim : MonoBehaviour
     {
-        transform.Rotate(Vector3.forward);    
+        Quaternion quaternion;
+
+        private static PortalAnim instance;
+
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else if (instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.Rotate(Vector3.forward * Time.deltaTime * 10);
+        }
     }
 }

@@ -1060,17 +1060,19 @@ MonoBehaviour:
   deathDistation: 90
   correctPointForStartPositionX: {x: 14, y: -14}
   rb: {fileID: 5756880168451191944}
-  direction: {fileID: 5784351995409543745, guid: 6dc6e8b67d71fd1499193557b4d3eb1a,
-    type: 3}
+  target: {fileID: 4741190137700115336, guid: 874cc8ff8668a5246a7420f0401ed7a8, type: 3}
   animator: {fileID: 5547313051992732991}
   col: {fileID: 7960063160343130533}
   audioSource: {fileID: 4145540974405702491}
   deathClips:
   - {fileID: 8300000, guid: e14aa23f2579fc842bafda324a3d6444, type: 3}
   spawnClips:
-  - {fileID: 8300000, guid: 4d3eb8c483b806040a3a6d0896156886, type: 3}
+  - {fileID: 8300000, guid: 5c459085b51c7cd43824c82757e227fa, type: 3}
   hittedClips:
-  - {fileID: 8300000, guid: ac49d34686e8ce94c989746ac68795dd, type: 3}
+  - {fileID: 8300000, guid: eca6c0dc75188004e9c948a305f2ac9a, type: 3}
+  attackClips:
+  - {fileID: 8300000, guid: 10fa988b6203de8448dad6bc8b0b600c, type: 3}
+  attackRange: 6
   UIHPbar: {fileID: 6667624027540336626}
 --- !u!50 &5756880168451191944
 Rigidbody2D:
