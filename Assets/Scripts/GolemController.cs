@@ -36,9 +36,12 @@ namespace Assets.Scripts
         [SerializeField]
         List<AudioClip> attackClips;
         [SerializeField]
+        List<AudioClip> stepClips;
+        [SerializeField]
+        List<AudioSource> stepSources;
+
+        [SerializeField]
         float attackRange;
-
-
 
         [SerializeField]
         Slider UIHPbar;
@@ -65,13 +68,12 @@ namespace Assets.Scripts
 
             col.enabled = true;
 
-            UIHPbar.maxValue = hp / 1000;
+            UIHPbar.maxValue = hp;
             UIHPbar.value = UIHPbar.maxValue;
 
             audioSource.clip = spawnClips[Random.Range(0, spawnClips.Count -1)];
             audioSource.Play();
         }
-
 
         public void TakeDamage(Element _spellType, float _damage)
         {
@@ -102,23 +104,21 @@ namespace Assets.Scripts
             }
             //Debug.Log(!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
 
-            UIHPbar.value = hp / 1000;
+            UIHPbar.value = hp;
         }
 
         void Move()
         {
-
-
             rb.velocity = (new Vector2(target.position.x, target.position.y) - rb.position).normalized * speed * 5;
             transform.right = (target.position - transform.position);
 
             rb.inertia = 0;
-
-
-
         }
 
-
+        void PlayStep(int index)
+        {
+            stepSources[index].PlayOneShot(stepClips[index]);
+        }
 
         private void ReturnToPull()
         {
@@ -133,8 +133,6 @@ namespace Assets.Scripts
 
         }
 
-
-
         private void Awake()
         {
             speed = golemData.MoveSpeed;
@@ -144,7 +142,6 @@ namespace Assets.Scripts
 
             startPosition = new Vector3(Random.Range(correctPointForStartPositionX.x, correctPointForStartPositionX.y), startPosition.y, startPosition.z);
             transform.position = startPosition;
-
         }
 
         private void Update()
@@ -158,12 +155,6 @@ namespace Assets.Scripts
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 { 
                     animator.SetTrigger("Death");
-                    
-
-
-                    //audioSource.clip = deathClips[Random.Range(0, spawnClips.Count - 1)];
-                    //audioSource.Play();
-
                 }
                 
                 if (speed > 0)
@@ -172,10 +163,6 @@ namespace Assets.Scripts
                 }
                 //transform.position = Vector3.forward / 100;
                 col.enabled = false;
-
-
-
-                
             }
             if (animator.GetCurrentAnimatorStateInfo(0).length < (animator.GetCurrentAnimatorStateInfo(0).normalizedTime * 3f)
                 && animator.GetCurrentAnimatorStateInfo(0).IsName("Death"))

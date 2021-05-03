@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817bd288fa53d1b4490a65b5b3bb6100, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  spellType: 1
+  spellType: 2
   spellMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   spellMaterial: {fileID: 2100000, guid: 8d7cd95589f6c2a4f851b147e23c73b1, type: 2}
   damage: 4
   speed: 7
-  particle: {fileID: 2401940481955995429, guid: 536e78aafa66cc9478b5847de774d890,
-    type: 3}

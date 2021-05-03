@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cada1c8edb8b6549b285b7eecd288ba, type: 3}
   m_Name: GolemWater
   m_EditorClassIdentifier: 
-  golemName: 1
+  golemName: 2
   moveSpeed: 2
   attackDamage: 10
   healthPoint: 8

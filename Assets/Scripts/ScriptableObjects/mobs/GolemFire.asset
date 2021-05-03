@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cada1c8edb8b6549b285b7eecd288ba, type: 3}
   m_Name: GolemFire
   m_EditorClassIdentifier: 
-  golemName: 0
+  golemName: 1
   moveSpeed: 3
   attackDamage: 5
   healthPoint: 5

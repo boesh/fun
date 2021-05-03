@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cada1c8edb8b6549b285b7eecd288ba, type: 3}
   m_Name: GolemEarth
   m_EditorClassIdentifier: 
-  golemName: 3
+  golemName: 0
   moveSpeed: 0.5
   attackDamage: 20
   healthPoint: 40

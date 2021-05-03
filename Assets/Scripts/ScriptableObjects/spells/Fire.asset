@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817bd288fa53d1b4490a65b5b3bb6100, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  spellName: 0
+  spellType: 1
   spellMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   spellMaterial: {fileID: 2100000, guid: df5c60c2487467b4fac0a5eb15038c7e, type: 2}
   damage: 4
   speed: 7
-  particle: {fileID: 2019089342042366284, guid: 938b9a2290c5ac044ac303ccfc883341,
-    type: 3}
